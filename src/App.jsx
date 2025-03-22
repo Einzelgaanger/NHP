@@ -12,11 +12,13 @@ import { getAllProducts as getProducts } from './firebase/firestore';
 import useAdminAuth from './hooks/useAdminAuth'; // Import the new auth hook
 import AdminLogin from './components/admin/AdminLogin';
 import AdminPanel from './components/admin/AdminPanel';
-
+import { initializeAdminCollection } from './utils/initializeAdminCollection';
 function App() {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  
+  useEffect(() => {
+    initializeAdminCollection();
+  }, []);
   // Use the new admin auth hook instead of local state
   const { isAdmin, logoutAdmin } = useAdminAuth();
   

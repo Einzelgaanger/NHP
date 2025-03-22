@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { db } from '../../firebase/config';
-import { collection, addDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, push, set } from 'firebase/database';
+import { realtimeDb, storage } from '../../firebase/config';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const AddProduct = ({ onBack }) => {
   const [name, setName] = useState('');
@@ -158,226 +158,146 @@ const AddProduct = ({ onBack }) => {
   };
 
   const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
+    const file = e.target.files[0];
+    if (file) {
       setImage(file);
-      
-      // Create image preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    setIsSubmitting(true);
-
-    try {
-      let imageUrl = '';
-      
-      // Upload image if selected
-      if (image) {
-        const storage = getStorage();
-        const storageRef = ref(storage, `product-images/${Date.now()}_${image.name}`);
-        await uploadBytes(storageRef, image);
-        imageUrl = await getDownloadURL(storageRef);
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      setError('');
+  
+      try {
+        let imageUrl = '';
+        
+        if (image) {
+          const imageRef = storageRef(storage, `products/${Date.now()}_${image.name}`);
+          const snapshot = await uploadBytes(imageRef, image);
+          imageUrl = await getDownloadURL(snapshot.ref);
+        }
+  
+        const productsRef = ref(realtimeDb, 'products');
+        const newProductRef = push(productsRef);
+        
+        await set(newProductRef, {
+          id: newProductRef.key,
+          name,
+          description,
+          price: parseFloat(price),
+          available,
+          imageUrl,
+          createdAt: Date.now()
+        });
+  
+        setSuccess('Product added successfully!');
+        setTimeout(() => {
+          onBack();
+        }, 1500);
+        
+      } catch (err) {
+        console.error('Error adding product:', err);
+        setError('Failed to add product. Please try again.');
+      } finally {
+        setIsSubmitting(false);
       }
-
-      // Add product to Firestore
-      await addDoc(collection(db, 'products'), {
-        name,
-        description,
-        price: parseFloat(price),
-        available,
-        imageUrl,
-        createdAt: new Date()
-      });
-
-      setSuccess('Product added successfully!');
-      
-      // Reset form
-      setName('');
-      setDescription('');
-      setPrice('');
-      setAvailable(true);
-      setImage(null);
-      setImagePreview('');
-      
-      setTimeout(() => {
-        onBack(); // Return to product list after a delay
-      }, 1500);
-      
-    } catch (error) {
-      console.error('Error adding product:', error);
-      setError('Failed to add product. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <div style={styles.addProduct}>
-      <div style={styles.formHeader}>
-        <h2 style={styles.heading}>Add New Product</h2>
-        <button 
-          style={styles.backButton} 
-          onClick={onBack}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#e9ecef';
-            e.currentTarget.style.borderColor = '#ced4da';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#f8f9fa';
-            e.currentTarget.style.borderColor = '#ddd';
-          }}
-        >
-          Back to Products
-        </button>
-      </div>
-      
-      {error && <div style={styles.errorMessage}>⚠️ {error}</div>}
-      {success && <div style={styles.successMessage}>✅ {success}</div>}
-      
-      <form onSubmit={handleSubmit}>
-        <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="name">Product Name</label>
+    };
+  
+    return (
+      <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-6">
+        {error && <div className="text-red-500 mb-4">{error}</div>}
+        {success && <div className="text-green-500 mb-4">{success}</div>}
+        
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Product Name</label>
           <input
-            style={styles.input}
             type="text"
-            id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border rounded"
             required
-            onFocus={(e) => {
-              e.target.style.borderColor = '#feb47b';
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.boxShadow = '0 0 0 3px rgba(254, 180, 123, 0.15)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#dde1e7';
-              e.target.style.backgroundColor = '#f7f9fc';
-              e.target.style.boxShadow = 'none';
-            }}
           />
         </div>
-        
-        <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="description">Description</label>
+  
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Description</label>
           <textarea
-            style={styles.textarea}
-            id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="w-full p-2 border rounded"
+            rows="3"
             required
-            onFocus={(e) => {
-              e.target.style.borderColor = '#feb47b';
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.boxShadow = '0 0 0 3px rgba(254, 180, 123, 0.15)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#dde1e7';
-              e.target.style.backgroundColor = '#f7f9fc';
-              e.target.style.boxShadow = 'none';
-            }}
           />
         </div>
-        
-        <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="price">Price (₦)</label>
+  
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Price (₦)</label>
           <input
-            style={styles.input}
             type="number"
-            id="price"
-            min="0"
-            step="0.01"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            className="w-full p-2 border rounded"
+            min="0"
+            step="0.01"
             required
-            onFocus={(e) => {
-              e.target.style.borderColor = '#feb47b';
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.boxShadow = '0 0 0 3px rgba(254, 180, 123, 0.15)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#dde1e7';
-              e.target.style.backgroundColor = '#f7f9fc';
-              e.target.style.boxShadow = 'none';
-            }}
           />
         </div>
-        
-        <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="availability">Availability</label>
+  
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Availability</label>
           <select
-            style={styles.select}
-            id="availability"
             value={available}
             onChange={(e) => setAvailable(e.target.value === 'true')}
-            onFocus={(e) => {
-              e.target.style.borderColor = '#feb47b';
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.boxShadow = '0 0 0 3px rgba(254, 180, 123, 0.15)';
-            }}
-            onBlur={(e) => {
-              e.target.style.borderColor = '#dde1e7';
-              e.target.style.backgroundColor = '#f7f9fc';
-              e.target.style.boxShadow = 'none';
-            }}
+            className="w-full p-2 border rounded"
           >
             <option value="true">In Stock</option>
             <option value="false">Out of Stock</option>
           </select>
         </div>
-        
-        <div style={styles.formGroup}>
-          <label style={styles.label} htmlFor="image">Product Image</label>
+  
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Product Image</label>
           <input
-            style={styles.fileInput}
             type="file"
-            id="image"
-            accept="image/*"
             onChange={handleImageChange}
+            className="w-full p-2 border rounded"
+            accept="image/*"
             required
           />
-        </div>
-        
-        {imagePreview && (
-          <div style={styles.imagePreview}>
+          {imagePreview && (
             <img 
               src={imagePreview} 
-              alt="Product preview" 
-              style={styles.previewImg}
+              alt="Preview" 
+              className="mt-2 max-w-xs rounded"
             />
-          </div>
-        )}
-        
-        <button 
-          type="submit" 
-          style={isSubmitting ? {...styles.submitButton, ...styles.submitButtonDisabled} : styles.submitButton}
-          disabled={isSubmitting}
-          onMouseOver={(e) => {
-            if (!isSubmitting) {
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 126, 95, 0.3)';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }
-          }}
-          onMouseOut={(e) => {
-            if (!isSubmitting) {
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 126, 95, 0.2)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }
-          }}
-        >
-          {isSubmitting ? 'Adding Product...' : 'Add Product'}
-        </button>
+          )}
+        </div>
+  
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={`px-4 py-2 rounded ${
+              isSubmitting 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-blue-500 hover:bg-blue-600'
+            } text-white`}
+          >
+            {isSubmitting ? 'Adding Product...' : 'Add Product'}
+          </button>
+          <button
+            type="button"
+            onClick={onBack}
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
-    </div>
-  );
-};
-
-export default AddProduct;
+    );
+  };
+  
+  export default AddProduct;
