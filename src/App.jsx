@@ -11,7 +11,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import Loading from './components/common/Loading';
 import { getAllProducts as getProducts } from './firebase/firestore';
 import useAdminAuth from './hooks/useAdminAuth'; // Import the new auth hook
-
+import AdminLogin from './components/admin/AdminLogin';
 // Import the admin initialization function
 import { initializeAdminCollection } from './utils/initializeAdminCollection';
 
@@ -112,6 +112,8 @@ function App() {
                 <AdminLoginPage />
               } 
             />
+            <Route path="/admin-login" element={<AdminLogin />} />
+        
             <Route 
               path="/admin/*" 
               element={
