@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import UserPanel from '../components/user/UserPanel';
 import UserNavbar from '../components/user/UserNavbar';
-import Loading from '../components/common/Loading';
 import { CartProvider } from '../contexts/CartContext';
 import { getAllProducts as getProducts } from '../firebase/firestore';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // Redesigned CSS with earthy soil theme and green footer
@@ -440,20 +438,17 @@ const HomePage = () => {
         // Filter to only show available products
         const availableProducts = productData.filter(product => product.available);
         setProducts(availableProducts);
-        setIsLoading(false);
       } catch (err) {
         console.error('Error fetching products:', err);
         setError('Failed to load products. Please try again later.');
-        setIsLoading(false);
+        
       }
     };
 
     fetchProducts();
   }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+ 
 
   const scrollToProducts = () => {
     document.getElementById('products-section').scrollIntoView({ 

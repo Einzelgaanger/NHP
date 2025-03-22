@@ -8,7 +8,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import ProtectedRoute from './components/common/ProtectedRoute';
-import Loading from './components/common/Loading';
 import { getAllProducts as getProducts } from './firebase/firestore';
 import useAdminAuth from './hooks/useAdminAuth'; // Import the new auth hook
 import AdminLogin from './components/admin/AdminLogin';
@@ -18,7 +17,6 @@ import { initializeAdminCollection } from './utils/initializeAdminCollection';
 function App() {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   
   // Use the new admin auth hook instead of local state
   const { isAdmin, logoutAdmin } = useAdminAuth();
@@ -46,9 +44,7 @@ function App() {
         setProducts(productsData);
       } catch (error) {
         console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     
     fetchProducts();
@@ -87,9 +83,7 @@ function App() {
     setCart([]);
   };
   
-  if (loading) {
-    return <Loading />;
-  }
+ 
   
   return (
     <CartContext.Provider value={{ 
@@ -113,7 +107,6 @@ function App() {
               } 
             />
             <Route path="/admin-login" element={<AdminLogin />} />
-        
             <Route 
               path="/admin/*" 
               element={

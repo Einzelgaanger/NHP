@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../../contexts/CartContext';
 import { getAllProducts } from '../../firebase/firestore';
-import Loading from '../common/Loading';
+
 
 function UserPanel() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
 
   // Integrated styles
@@ -89,17 +88,13 @@ function UserPanel() {
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]); // Set empty array on error
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchProducts();
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  
 
   return (
     <div style={styles.container}>

@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import AdminPanel from '../components/admin/AdminPanel';
 import AdminNavbar from '../components/admin/AdminNavbar';
 import Footer from '../components/common/Footer';
-import Loading from '../components/common/Loading';
 
 const AdminPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +41,6 @@ const AdminPage = () => {
     }
 
     setIsAuthenticated(true);
-    setIsLoading(false);
   }, [navigate]);
 
   const handleLogout = () => {
@@ -51,9 +48,7 @@ const AdminPage = () => {
     navigate('/admin/login');
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  
 
   return (
     <div style={styles.page}>

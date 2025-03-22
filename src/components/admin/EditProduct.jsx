@@ -10,7 +10,6 @@ const EditProduct = ({ product, onBack }) => {
   const [available, setAvailable] = useState(true);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -42,7 +41,6 @@ const EditProduct = ({ product, onBack }) => {
     e.preventDefault();
     if (!product || !product.id) return;
     
-    setLoading(true);
     setError('');
     setSuccess('');
 
@@ -77,9 +75,7 @@ const EditProduct = ({ product, onBack }) => {
     } catch (error) {
       console.error('Error updating product:', error);
       setError('Failed to update product. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   if (!product) return <div>No product selected for editing.</div>;
@@ -343,9 +339,7 @@ const EditProduct = ({ product, onBack }) => {
         <button 
           type="submit" 
           className="submit-button" 
-          disabled={loading}
         >
-          {loading ? 'Updating...' : 'Update Product'}
         </button>
       </form>
     </div>

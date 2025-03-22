@@ -15,7 +15,6 @@ import { checkAdminStatus } from '../firebase/firestore';
 const useAdminAuth = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   
   // Listen for auth state changes
@@ -37,7 +36,6 @@ const useAdminAuth = () => {
         setIsAdmin(false);
       }
       
-      setIsLoading(false);
     });
     
     // Cleanup subscription
@@ -46,7 +44,7 @@ const useAdminAuth = () => {
   
   // Handle Google sign in
   const loginWithGoogle = async () => {
-    setIsLoading(true);
+    
     setError(null);
     
     try {
@@ -70,9 +68,7 @@ const useAdminAuth = () => {
       console.error("Login error:", err);
       setError(err.message || "Failed to login");
       return false;
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
   
   // Handle sign out
@@ -92,7 +88,6 @@ const useAdminAuth = () => {
   return {
     currentUser,
     isAdmin,
-    isLoading,
     error,
     loginWithGoogle,
     logoutAdmin

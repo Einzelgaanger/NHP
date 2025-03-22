@@ -10,9 +10,9 @@ const AddProduct = ({ onBack }) => {
   const [available, setAvailable] = useState(true);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Advanced inline styles
   const styles = {
@@ -152,6 +152,8 @@ const AddProduct = ({ onBack }) => {
     submitButtonDisabled: {
       opacity: '0.7',
       cursor: 'not-allowed',
+      background: 'linear-gradient(90deg, #ccc, #ddd)',
+      boxShadow: 'none'
     }
   };
 
@@ -171,9 +173,9 @@ const AddProduct = ({ onBack }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
     setSuccess('');
+    setIsSubmitting(true);
 
     try {
       let imageUrl = '';
@@ -214,7 +216,7 @@ const AddProduct = ({ onBack }) => {
       console.error('Error adding product:', error);
       setError('Failed to add product. Please try again.');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -356,27 +358,22 @@ const AddProduct = ({ onBack }) => {
         
         <button 
           type="submit" 
-          style={{
-            ...styles.submitButton,
-            ...(loading ? styles.submitButtonDisabled : {})
-          }}
-          disabled={loading}
+          style={isSubmitting ? {...styles.submitButton, ...styles.submitButtonDisabled} : styles.submitButton}
+          disabled={isSubmitting}
           onMouseOver={(e) => {
-            if (!loading) {
-              e.currentTarget.style.background = 'linear-gradient(90deg, #ff7054, #fea968)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
+            if (!isSubmitting) {
               e.currentTarget.style.boxShadow = '0 6px 16px rgba(255, 126, 95, 0.3)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
             }
           }}
           onMouseOut={(e) => {
-            if (!loading) {
-              e.currentTarget.style.background = 'linear-gradient(90deg, #ff7e5f, #feb47b)';
-              e.currentTarget.style.transform = 'translateY(0)';
+            if (!isSubmitting) {
               e.currentTarget.style.boxShadow = '0 4px 12px rgba(255, 126, 95, 0.2)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }
           }}
         >
-          {loading ? 'Adding...' : 'Add Product'}
+          {isSubmitting ? 'Adding Product...' : 'Add Product'}
         </button>
       </form>
     </div>

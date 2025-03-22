@@ -7,15 +7,15 @@ import Navbar from '../components/common/Navbar';
 import useAdminAuth from '../hooks/useAdminAuth';
 
 const AdminLoginPage = () => {
-  const { isAdmin, isLoading, error, loginWithGoogle } = useAdminAuth();
+  const { isAdmin, error, loginWithGoogle } = useAdminAuth();
   const navigate = useNavigate();
 
   // Redirect if already authenticated
   useEffect(() => {
-    if (isAdmin && !isLoading) {
+    if (isAdmin ) {
       navigate('/admin');
     }
-  }, [isAdmin, isLoading, navigate]);
+  }, [isAdmin, navigate]);
 
   // Integrated styles
   const styles = {
@@ -41,10 +41,7 @@ const AdminLoginPage = () => {
       color: '#15803d', // green-700
       textAlign: 'center',
     },
-    loadingText: {
-      color: '#6b7280',
-      marginTop: '1rem',
-    }
+    
   };
 
   const handleGoogleLogin = async () => {
@@ -59,11 +56,7 @@ const AdminLoginPage = () => {
       <Navbar />
       <div style={styles.container}>
         <h1 style={styles.heading}>Admin Login</h1>
-        {isLoading ? (
-          <p style={styles.loadingText}>Loading...</p>
-        ) : (
-          <AdminLogin onGoogleLogin={handleGoogleLogin} error={error} />
-        )}
+        
       </div>
       <Footer />
     </div>

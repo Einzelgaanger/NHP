@@ -8,13 +8,11 @@ import AdminNavbar from './AdminNavbar';
 
 const AdminPanel = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
   const [activeView, setActiveView] = useState('list'); // 'list', 'add', 'edit'
 
   // Fetch products from Firestore
   const fetchProducts = async () => {
-    setLoading(true);
     try {
       const productsCollection = collection(db, 'products');
       const productsSnapshot = await getDocs(productsCollection);
@@ -25,9 +23,7 @@ const AdminPanel = () => {
       setProducts(productsList);
     } catch (error) {
       console.error('Error fetching products:', error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
@@ -157,22 +153,9 @@ const AdminPanel = () => {
           margin-bottom: 1.5rem;
         }
 
-        /* Loading State */
-        .loading-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 200px;
-        }
+      
 
-        .loading-spinner {
-          width: 50px;
-          height: 50px;
-          border: 5px solid var(--primary-light);
-          border-top: 5px solid var(--primary-dark);
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        }
+      
 
         @keyframes spin {
           0% { transform: rotate(0deg); }
@@ -379,8 +362,7 @@ const AdminPanel = () => {
               Add New Product
             </button>
             <ProductList 
-              products={products} 
-              loading={loading} 
+              products={products}  
               onEdit={handleEditProduct} 
               onRefresh={fetchProducts} 
             />

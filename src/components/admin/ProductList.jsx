@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { db } from '../../firebase/config';
 import { doc, deleteDoc } from 'firebase/firestore';
 
-const ProductList = ({ products, loading, onEdit, onRefresh }) => {
+const ProductList = ({ products, onEdit, onRefresh }) => {
   const [deleteId, setDeleteId] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const handleDeleteClick = (id) => {
     setDeleteId(id);
@@ -20,7 +19,6 @@ const ProductList = ({ products, loading, onEdit, onRefresh }) => {
   const confirmDeleteProduct = async () => {
     if (!deleteId) return;
     
-    setDeleteLoading(true);
     try {
       await deleteDoc(doc(db, 'products', deleteId));
       setConfirmDelete(false);
@@ -29,14 +27,10 @@ const ProductList = ({ products, loading, onEdit, onRefresh }) => {
     } catch (error) {
       console.error('Error deleting product:', error);
       alert('Failed to delete product. Please try again.');
-    } finally {
-      setDeleteLoading(false);
-    }
+    } 
   };
 
-  if (loading) {
-    return <div className="loading">Loading products...</div>;
-  }
+  
 
   if (products.length === 0) {
     return <div className="no-products">No products found. Add your first product!</div>;
@@ -75,14 +69,7 @@ const ProductList = ({ products, loading, onEdit, onRefresh }) => {
           background-color: #8d6e63;
         }
         
-        .loading, .no-products {
-          padding: 2rem;
-          text-align: center;
-          color: #757575;
-          background-color: #f5f5f5;
-          border-radius: 4px;
-          margin: 1rem 0;
-        }
+       
         
         .delete-confirmation {
           background-color: #fff3e0;
@@ -279,16 +266,13 @@ const ProductList = ({ products, loading, onEdit, onRefresh }) => {
             <button 
               className="cancel-button" 
               onClick={cancelDelete}
-              disabled={deleteLoading}
             >
               Cancel
             </button>
             <button 
               className="delete-button" 
               onClick={confirmDeleteProduct}
-              disabled={deleteLoading}
             >
-              {deleteLoading ? 'Deleting...' : 'Delete'}
             </button>
           </div>
         </div>
