@@ -10,7 +10,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Inline CSS styles with improved color scheme for natural hair oil website
+  // Redesigned CSS with earthy soil theme and green footer
   const styles = `
     /* Main Layout Styles */
     .home-page {
@@ -29,9 +29,9 @@ const HomePage = () => {
       padding: 20px;
     }
 
-    /* Hero Section Styles */
+    /* Hero Section Styles - Earthy Soil Theme */
     .hero-section {
-      background: linear-gradient(135deg, #006241 0%, #004d33 100%);
+      background: linear-gradient(135deg, #5e4126 0%, #3d2a17 100%);
       color: white;
       padding: 100px 40px;
       margin-bottom: 60px;
@@ -39,7 +39,7 @@ const HomePage = () => {
       text-align: center;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0, 77, 51, 0.2);
+      box-shadow: 0 20px 40px rgba(62, 43, 26, 0.3);
     }
 
     .hero-section::before {
@@ -49,8 +49,7 @@ const HomePage = () => {
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
-      opacity: 0.7;
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 0h2v20H9V0zm25.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm-20 20l1.732 1-10 17.32-1.732-1 10-17.32zM58.16 4.134l1 1.732-17.32 10-1-1.732 17.32-10zm-40 40l1 1.732-17.32 10-1-1.732 17.32-10zM80 9v2H60V9h20zM20 69v2H0v-2h20zm79.32-55l-1 1.732-17.32-10L82 4l17.32 10zm-80 80l-1 1.732-17.32-10L2 84l17.32 10zm96.546-75.84l-1.732 1-10-17.32 1.732-1 10 17.32zm-100 100l-1.732 1-10-17.32 1.732-1 10 17.32zM38.16 24.134l1 1.732-17.32 10-1-1.732 17.32-10zM60 29v2H40v-2h20zm19.32 5l-1 1.732-17.32-10L62 24l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM111 40h-2V20h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zM40 49v2H20v-2h20zm19.32 5l-1 1.732-17.32-10L42 44l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM91 60h-2V40h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM39.32 74l-1 1.732-17.32-10L22 64l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM71 80h-2V60h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM120 89v2h-20v-2h20zm-84.134 9.16l-1.732 1-10-17.32 1.732-1 10 17.32zM51 100h-2V80h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM100 109v2H80v-2h20zm19.32 5l-1 1.732-17.32-10 1-1.732 17.32 10zM31 120h-2v-20h2v20z' fill='%23d9c5a8' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
       z-index: 0;
     }
 
@@ -60,13 +59,90 @@ const HomePage = () => {
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(0, 77, 51, 0) 0%, rgba(0, 77, 51, 0.6) 100%);
+      background: radial-gradient(circle at 30% 50%, rgba(62, 43, 26, 0) 0%, rgba(46, 32, 19, 0.7) 100%);
       z-index: 1;
+    }
+
+    /* Soil Texture Effect */
+    .soil-texture {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 C 10 10, 15 0, 20 5 C 25 10, 30 15, 40 5 C 50 15, 60 0, 70 10 C 80 15, 90 5, 100 15 L 100 20 L 0 20 Z' fill='%237a573d'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 100px 20px;
+      opacity: 0.8;
+      z-index: 2;
+    }
+
+    /* Soil Particles Animation */
+    @keyframes floatParticle {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; }
+    }
+
+    .soil-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #c2a87c;
+      border-radius: 50%;
+      z-index: 2;
+      opacity: 0;
+      animation: floatParticle 6s infinite;
+    }
+
+    .soil-particle:nth-child(1) {
+      bottom: 20px;
+      left: 10%;
+      --x: 40px;
+      --y: -60px;
+      --r: 45deg;
+      animation-delay: 0.5s;
+    }
+
+    .soil-particle:nth-child(2) {
+      bottom: 40px;
+      left: 30%;
+      --x: -30px;
+      --y: -80px;
+      --r: -30deg;
+      animation-delay: 1.5s;
+    }
+
+    .soil-particle:nth-child(3) {
+      bottom: 30px;
+      left: 50%;
+      --x: 50px;
+      --y: -70px;
+      --r: 60deg;
+      animation-delay: 0.8s;
+    }
+
+    .soil-particle:nth-child(4) {
+      bottom: 50px;
+      left: 70%;
+      --x: -20px;
+      --y: -50px;
+      --r: -20deg;
+      animation-delay: 2.2s;
+    }
+
+    .soil-particle:nth-child(5) {
+      bottom: 25px;
+      left: 85%;
+      --x: 30px;
+      --y: -90px;
+      --r: 35deg;
+      animation-delay: 1.2s;
     }
 
     .hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .hero-section h1 {
@@ -89,8 +165,8 @@ const HomePage = () => {
 
     .hero-cta {
       display: inline-block;
-      background-color: #f0c14b;
-      color: #111;
+      background-color: #d4a96a;
+      color: #3d2a17;
       padding: 16px 32px;
       border-radius: 50px;
       font-weight: 600;
@@ -99,15 +175,17 @@ const HomePage = () => {
       transition: all 0.3s ease;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
       margin-top: 10px;
+      border: none;
+      cursor: pointer;
     }
 
     .hero-cta:hover {
-      background-color: #e6b93b;
+      background-color: #c79756;
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Features Section */
+    /* Features Section - Soil Inspired Cards */
     .features-section {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -122,6 +200,20 @@ const HomePage = () => {
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       text-align: center;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #7a573d, #9e7e5a, #7a573d);
+      opacity: 0.7;
+      transition: height 0.3s ease;
     }
 
     .feature-card:hover {
@@ -129,23 +221,27 @@ const HomePage = () => {
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
+    .feature-card:hover::after {
+      height: 12px;
+    }
+
     .feature-icon {
       width: 60px;
       height: 60px;
-      background-color: rgba(0, 77, 51, 0.1);
+      background-color: rgba(122, 87, 61, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 20px;
-      color: #006241;
+      color: #7a573d;
     }
 
     .feature-card h3 {
       font-size: 1.3rem;
       font-weight: 600;
       margin-bottom: 12px;
-      color: #333;
+      color: #3d2a17;
     }
 
     .feature-card p {
@@ -156,6 +252,7 @@ const HomePage = () => {
     /* Product Section */
     .products-section {
       margin-top: 40px;
+      padding-bottom: 60px;
     }
 
     .section-title {
@@ -163,7 +260,7 @@ const HomePage = () => {
       margin-bottom: 40px;
       font-size: 2.2rem;
       font-weight: 700;
-      color: #333;
+      color: #3d2a17;
       position: relative;
     }
 
@@ -175,8 +272,57 @@ const HomePage = () => {
       transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background-color: #006241;
+      background: linear-gradient(90deg, #7a573d, #9e7e5a, #7a573d);
       border-radius: 2px;
+    }
+
+    /* Earth Divider */
+    .earth-divider {
+      height: 60px;
+      margin: 50px 0;
+      position: relative;
+      background: linear-gradient(180deg, #f8f5f1 0%, rgba(248, 245, 241, 0) 100%);
+      overflow: hidden;
+    }
+
+    .earth-divider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 30px;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 C 20 0, 40 20, 60 5 C 80 15, 100 0, 120 10 C 140 20, 160 5, 180 15 C 200 0, 220 20, 240 5 C 260 15, 280 0, 300 10 L 300 30 L 0 30 Z' fill='%237a573d' fill-opacity='0.1'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 300px 30px;
+    }
+
+    /* Footer - Green Jungle Theme */
+    .footer {
+      background-color: #006241;
+      color: white;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: linear-gradient(90deg, #007241, #004d33, #007241, #004d33, #007241);
+      opacity: 0.7;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
     }
 
     /* Error Message Styles */
@@ -228,6 +374,10 @@ const HomePage = () => {
       .features-section {
         grid-template-columns: repeat(2, 1fr);
       }
+      
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
@@ -252,6 +402,11 @@ const HomePage = () => {
         grid-template-columns: 1fr;
         gap: 20px;
       }
+      
+      .soil-texture {
+        height: 60px;
+        background-size: 80px 15px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -270,6 +425,10 @@ const HomePage = () => {
 
       .section-title {
         font-size: 1.8rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
       }
     }
   `;
@@ -310,6 +469,13 @@ const HomePage = () => {
         <div className="main-content">
           <div className="hero-section">
             <div className="hero-overlay"></div>
+            <div className="soil-texture"></div>
+            {/* Animated soil particles */}
+            <div className="soil-particle"></div>
+            <div className="soil-particle"></div>
+            <div className="soil-particle"></div>
+            <div className="soil-particle"></div>
+            <div className="soil-particle"></div>
             <div className="hero-content">
               <h1 className="fade-in">Membu Naturals</h1>
               <p className="fade-in fade-in-delay-1">Experience the power of nature with our premium hair oils and products designed to nourish, strengthen and beautify your natural hair</p>
@@ -349,6 +515,8 @@ const HomePage = () => {
             </div>
           </div>
           
+          <div className="earth-divider"></div>
+          
           <div id="products-section" className="products-section">
             <h2 className="section-title fade-in">Our Products</h2>
             
@@ -360,6 +528,13 @@ const HomePage = () => {
             ) : (
               <UserPanel products={products} />
             )}
+          </div>
+        </div>
+        
+        {/* Added Footer with jungle green theme */}
+        <div className="footer">
+          <div className="footer-content">
+            {/* Footer content would go here */}
           </div>
         </div>
       </div>

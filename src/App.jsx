@@ -10,9 +10,6 @@ import Footer from './components/common/Footer';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Loading from './components/common/Loading';
 import { getAllProducts as getProducts } from './firebase/firestore';
-import './styles/global.css';
-import './styles/components/admin.css';
-import './styles/components/user.css';
 import useAdminAuth from './hooks/useAdminAuth'; // Import the new auth hook
 
 // Import the admin initialization function
