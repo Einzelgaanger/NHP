@@ -69,7 +69,7 @@ const AdminNavbar = () => {
   return (
     <nav style={styles.adminNavbar}>
       <div style={styles.navbarBrand}>
-        <h1 style={styles.brandTitle}>Natural Hair Products</h1>
+        <h1 style={styles.brandTitle}>Membu Naturals</h1>
         <span style={styles.adminBadge}>Admin Panel</span>
       </div>
       

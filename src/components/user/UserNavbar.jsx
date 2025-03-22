@@ -56,7 +56,7 @@ const UserNavbar = ({ cartItemCount, toggleCart }) => {
   return (
     <nav style={styles.nav}>
       <div style={styles.container}>
-        <Link to="/" style={styles.logo}>Natural Hair Products</Link>
+        <Link to="/" style={styles.logo}>Membu Naturals</Link>
         
         <div style={styles.rightSection}>
           <button 

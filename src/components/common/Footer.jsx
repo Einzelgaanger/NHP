@@ -115,7 +115,7 @@ const Footer = () => {
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-section">
-            <h3>Natural Hair Products</h3>
+            <h3>Membu Naturals</h3>
             <p>Quality products for your natural hair journey</p>
           </div>
           
@@ -156,7 +156,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>&copy; {currentYear} Natural Hair Products. All Rights Reserved.</p>
+          <p>&copy; {currentYear} Membu Naturals. All Rights Reserved.</p>
         </div>
       </footer>
     </>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserPanel from '../components/user/UserPanel';
 import UserNavbar from '../components/user/UserNavbar';
-import Footer from '../components/common/Footer';
 import Loading from '../components/common/Loading';
 import { CartProvider } from '../contexts/CartContext';
 import { getAllProducts as getProducts } from '../firebase/firestore';
@@ -151,7 +150,7 @@ const HomePage = () => {
         <UserNavbar />
         <div className="main-content">
           <div className="hero-section">
-            <h1>Natural Hair Products</h1>
+            <h1>Membu Naturals</h1>
             <p>Discover the best natural products for your hair</p>
           </div>
           
@@ -161,7 +160,6 @@ const HomePage = () => {
             <UserPanel products={products} />
           )}
         </div>
-        <Footer />
       </div>
     </CartProvider>
   );

@@ -122,7 +122,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo">
-            Natural Hair Products
+            Membu Naturals
           </Link>
           
           <div className="navbar-links">
@@ -147,7 +147,6 @@ const Navbar = () => {
                   Cart
                   <span className="cart-icon">🛒</span>
                 </Link>
-                <Link to="/admin">Admin Panel</Link>
               </>
             )}
           </div>

@@ -32,7 +32,7 @@ const Loading = ({ message = 'Loading...' }) => {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       fontSize: '18px',
       fontWeight: 500,
-      color: '#333',
+      color: '#000',
       textAlign: 'center',
       animation: 'textPulse 1.5s ease-in-out infinite',
       letterSpacing: '1px',
