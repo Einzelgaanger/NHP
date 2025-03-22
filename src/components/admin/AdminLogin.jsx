@@ -58,12 +58,11 @@ const AdminLogin = () => {
       
       if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         localStorage.setItem('isAdminAuthenticated', 'true');
-        navigate('/admin');
+        navigate('/admin'); // This will redirect to AdminPanel
       } else {
         setError('Invalid email or password');
       }
     };
-  
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">

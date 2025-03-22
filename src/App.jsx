@@ -11,8 +11,7 @@ import ProtectedRoute from './components/common/ProtectedRoute';
 import { getAllProducts as getProducts } from './firebase/firestore';
 import useAdminAuth from './hooks/useAdminAuth'; // Import the new auth hook
 import AdminLogin from './components/admin/AdminLogin';
-// Import the admin initialization function
-import { initializeAdminCollection } from './utils/initializeAdminCollection';
+import AdminPanel from './components/admin/AdminPanel';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -106,15 +105,15 @@ function App() {
                 <AdminLoginPage />
               } 
             />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route 
-              path="/admin/*" 
-              element={
-                <ProtectedRoute>
-                  <AdminPage />
-                </ProtectedRoute>
-              } 
-            />
+            <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin/*"
+          element={
+            <ProtectedRoute>
+              <AdminPanel />
+            </ProtectedRoute>
+          }
+        />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
